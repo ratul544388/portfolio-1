@@ -15,7 +15,7 @@ export const ScrollToSlide = () => {
     offset: ["start end", "end start"],
   });
   return (
-    <WhileInView y={30} className="mt-20 space-y-3">
+    <WhileInView y={30} className="mt-20 space-y-6">
       <Slide
         left="-20%"
         progress={scrollYProgress}
@@ -70,7 +70,7 @@ const Phrase = ({ src }: { src: StaticImageData }) => {
           placeholder="blur"
         />
       </div>
-      <p className="whitespace-nowrap pr-5 text-[8vw] font-semibold">
+      <p className="whitespace-nowrap pr-5 text-6xl font-semibold xs:text-[8vw]">
         Full Stack Web Developer
       </p>
     </div>

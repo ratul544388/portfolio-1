@@ -4,6 +4,8 @@ import { motion, MotionConfig } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { Button } from "./ui/button";
+import { MdOutlineClose } from "react-icons/md";
 
 export const MobileMenuButton = () => {
   const [open, setOpen] = useState(false);
@@ -87,10 +89,10 @@ export const MobileMenuButton = () => {
               return (
                 <motion.li
                   variants={{
-                    open: { opacity: 1 },
-                    closed: { opacity: 0 },
+                    open: { opacity: 1, x: 0 },
+                    closed: { opacity: 0, x: -30 },
                   }}
-                  transition={{ delay: 0.1 * index }}
+                  transition={{ delay: 0.1 * index, duration: 0.3 }}
                   key={label}
                   className="relative overflow-hidden"
                 >
@@ -98,11 +100,11 @@ export const MobileMenuButton = () => {
                     onClick={handleClose}
                     href={href}
                     className={cn(
-                      "flex items-center px-8 w-fit py-3.5 text-4xl font-medium text-gray-400 transition-all duration-1000 ease-in-out hover:text-foreground",
+                      "flex w-fit items-center px-8 py-3.5 text-4xl font-medium text-gray-400 transition-all duration-1000 ease-in-out hover:text-foreground",
                       active && "text-primary hover:text-primary",
                     )}
                   >
-                    <Icon className="size-9 mr-5" />
+                    <Icon className="mr-5 size-9" />
                     {label}
                     {active && <span>/</span>}
                   </Link>
@@ -111,6 +113,24 @@ export const MobileMenuButton = () => {
             })}
           </ul>
         </nav>
+        <motion.div
+          variants={{
+            closed: { scale: 0 },
+            open: { scale: 1, transition: { delay: 0.5 } },
+          }}
+          initial="closed"
+          animate={animate}
+          transition={{ duration: 0.3, type: "spring" }}
+        >
+          <Button
+            onClick={handleClose}
+            variant="outline"
+            size="icon"
+            className="absolute bottom-5 left-1/2 size-16 -translate-x-1/2"
+          >
+            <MdOutlineClose className="size-10" />
+          </Button>
+        </motion.div>
       </motion.div>
     </>
   );

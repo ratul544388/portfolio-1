@@ -3,18 +3,20 @@ import { Container } from "@/components/container";
 import { MotionButton } from "@/components/ui/motion-button";
 import { Text } from "@/components/ui/text";
 import { services } from "@/config";
-import { MdOutlineFileDownload } from "react-icons/md";
+import { MdOutlineClose, MdOutlineFileDownload } from "react-icons/md";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { StaggerWords } from "@/components/stagger-words";
 import { WhileInView } from "@/components/while-in-view";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export const Services = () => {
   return (
     <WhileInView className="w-full">
-      <Container className="mt-28 flex w-full flex-col items-center gap-14 xl:flex-row">
-        <div className="flex flex-col items-center xl:translate-x-[5rem] xl:items-start">
+      <Container className="mt-28 flex w-full flex-col items-center gap-14">
+        <div className="flex flex-col items-center">
           <Text variant="h2">
             <StaggerWords highlights={["Services"]}>
               My Awesome Services
@@ -31,19 +33,12 @@ export const Services = () => {
             </MotionButton>
           </Link>
         </div>
-        <div className="relative flex w-full flex-col gap-6 sm:pb-[500px]">
+        <div className="grid w-full max-w-[550px] gap-12 sm:grid-cols-2">
           {services.map((service, index) => (
             <ServiceCard
               {...service}
               key={service.title}
-              className={cn(
-                index === 0 &&
-                  "mr-auto sm:absolute sm:left-1/2 sm:top-[70%] sm:-translate-x-[18rem] sm:-translate-y-[14rem]",
-                index === 1 &&
-                  "ml-auto sm:absolute  sm:left-1/2 sm:top-[70%] sm:-translate-y-[20rem] sm:translate-x-[2rem]",
-                index === 2 &&
-                  "mr-auto sm:absolute  sm:left-1/2 sm:top-[70%] sm:-translate-y-[5rem] sm:translate-x-0",
-              )}
+              className={cn("odd:ml-auto sm:first:row-span-2 sm:first:my-auto")}
             />
           ))}
         </div>
@@ -63,25 +58,62 @@ const ServiceCard = ({
   image: string;
   className?: string;
 }) => {
+  const [isFilpped, setIsFlipped] = useState(false);
+
+  const handleFlip = () => {
+    setIsFlipped(!isFilpped);
+  };
+
   return (
     <motion.div
       className={cn(
-        "flex h-fit min-w-[250px] max-w-[250px] flex-col items-center justify-center rounded-xl border bg-card p-5 shadow-md",
+        "group flex h-fit min-w-[250px] max-w-[250px] [perspective:1000px]",
         className,
       )}
     >
-      <Image src={image} alt={`${title} Image`} height={40} width={40} />
-      <h4 className="mt-1 font-medium">{title}</h4>
-      <p className="line-clamp-2 text-sm text-muted-foreground">
-        {description}
-      </p>
-      <MotionButton
-        variant="outline"
-        size="sm"
-        className="mt-3 text-blue-500 hover:border-blue-500/50 hover:text-blue-500"
+      <div
+        className={cn(
+          "flex-col items-center justify-center rounded-lg border bg-card p-5 shadow-md transition-all duration-1000 ease-in-out [transform-style:preserve-3d]",
+          isFilpped && "[transform:rotateY(180deg)]",
+        )}
       >
-        Read More
-      </MotionButton>
+        <div className="flex flex-col items-center [backface-visibility:hidden]">
+          <Image src={image} alt={`${title} Image`} height={40} width={40} />
+          <h4 className="mt-1 font-medium">{title}</h4>
+          <p className="line-clamp-2 text-sm text-muted-foreground">
+            {description}
+          </p>
+          <MotionButton
+            onClick={handleFlip}
+            variant="outline"
+            size="xs"
+            className="mt-3 border-none text-primary ring-1 ring-border hover:text-primary hover:ring-primary"
+          >
+            Read More
+          </MotionButton>
+        </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-between overflow-y-auto text-sm text-muted-foreground scrollbar-thin [transform:rotateY(180deg)] [backface-visibility:hidden]">
+          <div className="p-5 flex flex-col">
+            <Button
+              onClick={handleFlip}
+              size="icon"
+              variant="ghost"
+              className="sticky top-5 -translate-x-5 -translate-y-5"
+            >
+              <MdOutlineClose className="size-4" />
+            </Button>
+            <p className="-translate-y-6">{description}</p>
+            <MotionButton
+              onClick={handleFlip}
+              variant="outline"
+              size="xs"
+              className="border-none mx-auto text-primary ring-1 ring-border hover:text-primary hover:ring-primary"
+            >
+              Read Less
+            </MotionButton>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };

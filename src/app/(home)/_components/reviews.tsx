@@ -18,7 +18,7 @@ export const Reviews = () => {
           {reviews.map(({ name, username, image, comment }) => (
             <CarouselItem
               key={name}
-              className="mr-6 max-w-[500px] rounded-lg bg-card p-5 shadow-md sm:basis-1/2 lg:basis-1/3 2xl:basis-1/4"
+              className="mr-6 select-none max-w-[300px] xs:max-w-[450px] rounded-lg bg-card p-5 shadow-md"
             >
               <div className="flex items-center gap-2">
                 <div className="relative h-9 w-9 overflow-hidden rounded-full">

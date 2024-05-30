@@ -12,6 +12,7 @@ interface MotionButtonProps
   href?: string;
   whileHoverScale?: number;
   target?: "_blank" | "";
+  onClick?: () => void;
 }
 
 export const MotionButton = ({
@@ -22,11 +23,12 @@ export const MotionButton = ({
   className,
   whileHoverScale = 1.03,
   target,
+  onClick,
 }: MotionButtonProps) => {
   const Comp = href ? motion(Link) : motion.button;
-
   return (
     <Comp
+      onClick={() => onClick?.()}
       whileHover={{ scale: whileHoverScale }}
       whileTap={{ scale: 1.06 }}
       href={href || ""}
