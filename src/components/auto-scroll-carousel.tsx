@@ -23,7 +23,7 @@ export const AutoScrollCarousel = ({ children }: AutoScrollCarouselProps) => {
   return (
     <Carousel
       plugins={[
-        AutoScroll({ startDelay: 100, speed: 1 }),
+        AutoScroll({ startDelay: 100, speed: 1, stopOnInteraction: false }),
       ]}
       opts={{ loop: true }}
       className="w-full"
