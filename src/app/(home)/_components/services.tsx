@@ -98,7 +98,7 @@ const ServiceCard = ({
               onClick={handleFlip}
               size="icon"
               variant="ghost"
-              className="sticky top-5 -translate-x-5 -translate-y-5"
+              className="sticky z-20 top-5 -translate-x-5 -translate-y-5"
             >
               <MdOutlineClose className="size-4" />
             </Button>
