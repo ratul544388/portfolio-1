@@ -2,32 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 5%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --radius: 0.5rem;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer components {
+  .gradient {
+    @apply bg-gradient-to-b from-violet-500 to-purple-600;
   }
+  .shadow_sm {
+    @apply shadow-[0px_0px_10px_rgba(0,0,0,0.25)] hover:shadow-[0px_0px_15px_rgba(0,0,0,0.30)] dark:shadow-[0px_0px_15px_rgba(165,3,252,0.3)] dark:hover:shadow-[0px_0px_20px_rgba(165,3,252,0.4)];
+  }
+  .shadow_dark {
+    @apply shadow-[0px_0px_25px_rgba(165,3,252,0.3)];
+  }
+  .shadow_dark_hover {
+    @apply shadow-[0px_0px_25px_rgba(165,3,252,0.5)];
+  }
+}
+
+/* CSS loader  */
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid #0000;
+  border-right-color: #522af497;
+  position: relative;
+  animation: l24 1s infinite linear;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: inherit;
+  animation: inherit;
+  animation-duration: 2s;
+}
+.loader:after {
+  animation-duration: 4s;
+}
+@keyframes l24 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+
+.wavy-shape {
+  --mask: radial-gradient(32.31px at 50% 42px, #000 99%, #0000 101%)
+      calc(50% - 60px) 0/120px 100%,
+    radial-gradient(32.31px at 50% -12px, #0000 99%, #000 101%) 50% 30px/120px
+      100% repeat-x;
+  -webkit-mask: var(--mask);
+  mask: var(--mask);
 }
