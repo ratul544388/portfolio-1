@@ -51,7 +51,7 @@ export const ProjectDrawer = () => {
       <DrawerContent className="focus:outline-none">
         <div className="max-h-[80vh] w-full overflow-y-auto scrollbar-thin">
           <div className="mx-auto grid max-w-screen-2xl gap-8 p-5 scrollbar-thin sm:px-10 md:grid-cols-2">
-            <Carousel className="relative">
+            <Carousel className="relative aspect-video w-full">
               <CarouselContent>
                 {images.map((image, index) => (
                   <CarouselItem key={index}>
