@@ -580,7 +580,7 @@ export const skills = [
   },
   {
     label: "Next Js",
-    image: "/skills/framer-motion.png",
+    image: "/skills/nextjs.png",
     frontend: true,
     backend: true,
     skillPercentage: 100,

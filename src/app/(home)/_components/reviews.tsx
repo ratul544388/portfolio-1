@@ -1,7 +1,6 @@
-import { AutoScrollCarousel } from "@/components/auto-scroll-carousel";
 import { Container } from "@/components/container";
+import { HorizontalInfinityScroll } from "@/components/horizontal-infinity-scroll";
 import { StaggerWords } from "@/components/stagger-words";
-import { CarouselItem } from "@/components/ui/carousel";
 import { Text } from "@/components/ui/text";
 import { WhileInView } from "@/components/while-in-view";
 import { reviews } from "@/config";
@@ -10,35 +9,38 @@ import Image from "next/image";
 export const Reviews = () => {
   return (
     <WhileInView>
-      <Container className="mt-14 flex w-full flex-col items-center gap-5">
+      <Container className="mt-14 flex w-full flex-col items-center">
         <Text variant="h2">
           <StaggerWords highlights={["Reviews"]}>Reviews</StaggerWords>
         </Text>
-        <AutoScrollCarousel>
-          {reviews.map(({ name, username, image, comment }) => (
-            <CarouselItem
-              key={name}
-              className="mr-6 select-none max-w-[300px] xs:max-w-[450px] rounded-lg bg-card p-5 shadow-md"
+        <HorizontalInfinityScroll
+          speed={20}
+          className="mt-10"
+          direction="right"
+        >
+          {reviews.map(({ comment, image, name, username }, index) => (
+            <li
+              key={index}
+              className="min-w-[300px] space-y-3 rounded-md bg-card p-5"
             >
-              <div className="flex items-center gap-2">
-                <div className="relative h-9 w-9 overflow-hidden rounded-full">
-                  <Image
-                    src={image}
-                    alt={name}
-                    fill
-                    className="object-cover"
-                    placeholder="blur"
-                  />
-                </div>
-                <div>
-                  <h3 className="font-medium leading-4">{name}</h3>
-                  <p className="leading-4 text-muted-foreground">{username}</p>
+              <div className="flex gap-3">
+                <Image
+                  src={image}
+                  alt={`Review by - ${name}`}
+                  width={40}
+                  height={40}
+                  placeholder="blur"
+                  className="max-h-10 rounded-full object-cover"
+                />
+                <div className="text-sm">
+                  <h6 className="font-medium">{name}</h6>
+                  <p className="text-muted-foreground">@{username}</p>
                 </div>
               </div>
-              <p className="mt-3">{comment}</p>
-            </CarouselItem>
+              <p className="text-muted-foreground">{comment}</p>
+            </li>
           ))}
-        </AutoScrollCarousel>
+        </HorizontalInfinityScroll>
       </Container>
     </WhileInView>
   );

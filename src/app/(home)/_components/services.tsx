@@ -26,7 +26,7 @@ export const Services = () => {
             Elevate your online presence with our premium services. Let&apos;s
             turn your ideas into reality.
           </Text>
-          <Link href="/ratuls-cv.pdf" className="mt-5">
+          <Link href="/ratul.cv.pdf" className="mt-5">
             <MotionButton target="_blank" variant="gradient" className="w-fit">
               Download CV
               <MdOutlineFileDownload className="transition duration-300 ease-in-out group-hover:translate-y-1" />
