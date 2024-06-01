@@ -16,7 +16,6 @@ export const Reviews = () => {
         <HorizontalInfinityScroll
           speed={20}
           className="mt-10"
-          direction="right"
         >
           {reviews.map(({ comment, image, name, username }, index) => (
             <li

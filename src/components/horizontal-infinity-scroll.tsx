@@ -8,7 +8,6 @@ interface HorizontalInfinityScrollProps {
   speed?: number;
   className?: string;
   gap?: number;
-  direction?: "left" | "right";
 }
 
 export const HorizontalInfinityScroll = ({
@@ -16,8 +15,8 @@ export const HorizontalInfinityScroll = ({
   speed = 10,
   className,
   gap = 20,
-  direction = "left",
 }: HorizontalInfinityScrollProps) => {
+
   return (
     <div
       className={cn(
@@ -27,14 +26,8 @@ export const HorizontalInfinityScroll = ({
     >
       <motion.ul
         variants={{
-          initial: {
-            x: 0,
-            gap,
-            ...(direction === "left"
-              ? { paddingRight: gap }
-              : { paddingLeft: gap }),
-          },
-          animate: { x: direction === "left" ? "-100%" : "100%" },
+          initial: { x: 0, gap, paddingRight: gap },
+          animate: { x: "-100%" },
         }}
         initial="initial"
         animate="animate"
@@ -42,13 +35,7 @@ export const HorizontalInfinityScroll = ({
         className="flex"
       >
         {children}
-        <ul
-          style={{ gap }}
-          className={cn(
-            "absolute flex",
-            direction === "left" ? "left-full" : "right-full",
-          )}
-        >
+        <ul style={{ gap }} className="absolute left-full flex">
           {children}
         </ul>
       </motion.ul>
