@@ -33,7 +33,6 @@ export default function RootLayout({
         <Footer />
         <ModalProvider />
         <ChatPlugin />
-        <BackgroundLight />
       </body>
     </html>
   );
